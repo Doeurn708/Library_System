@@ -1,0 +1,58 @@
+src/
+│
+├── assets/
+│ ├── images/
+│ └── css/
+│
+├── components/
+│ ├── AppNavbar.vue
+│ ├── HeroSection.vue
+│ ├── BookCard.vue
+│ ├── SearchBar.vue
+│ └── AppFooter.vue
+│
+├── views/
+│ ├── HomeView.vue
+│ ├── BooksView.vue
+│ ├── BookDetailView.vue
+│ ├── LoginView.vue
+│ └── AboutView.vue
+│
+├── router/
+│ └── index.js
+│
+├── App.vue
+└── main.js
+
+
+
+
+
+
+ <button
+          type="submit"
+          class="btn btn-primary w-100 fw-semibold mb-3"
+          :disabled="loading"
+        >
+          <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          {{ loading ? 'Signing in…' : 'Sign In' }}
+        </button>
+
+
+        
+async function handleSubmit() {
+  touched.email = true
+  touched.password = true
+  if (errors.value.email || errors.value.password) return
+
+  loading.value = true
+  try {
+    await new Promise(r => setTimeout(r, 1200)) 
+    success.value = true
+    setTimeout(() => router.push('/'), 1000)
+  } catch (err) {
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
+}
