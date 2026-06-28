@@ -1,12 +1,15 @@
 <template>
-  <div >
-    <AppNavBar/>
-        <main>
-          <RouterView/>
-        </main>
+  <div class="app-shell">
+    <AppNavBar />
+    <main class="app-content">
+      <RouterView />
+    </main>
+    <AppFooter />
   </div>
 </template>
 
 <script setup>
-import AppNavBar from './components/AppNavBar.vue';
+import { RouterView } from 'vue-router'
+import AppNavBar from './components/AppNavBar.vue'
+import AppFooter from './components/AppFooter.vue'
 </script>

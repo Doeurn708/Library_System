@@ -10,7 +10,7 @@
 
         <div class="d-none font-monospace fw-medium gap-4 d-md-flex fs-5">
             <RouterLink to="/" class="text-decoration-none text-black custom-menu-link">Home</RouterLink>
-            <RouterLink to="/book" class="text-decoration-none text-black custom-menu-link">Books</RouterLink>
+            <RouterLink :to="{ name: 'books' }" class="text-decoration-none text-black custom-menu-link">Books</RouterLink>
             <RouterLink to="/about" class="text-decoration-none text-black custom-menu-link">About</RouterLink>
         </div>
 
@@ -19,13 +19,21 @@
                 <div class="input-group-text" id="btnGroupAddon2">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
-                <input type="text" class="form-control shadow-sm" placeholder="Search Books" aria-label="Input group example" aria-describedby="btnGroupAddon2">
+                <input
+                    v-model.trim="search"
+                    type="search"
+                    class="form-control shadow-sm"
+                    placeholder="Search Books"
+                    aria-label="Search books"
+                    aria-describedby="btnGroupAddon2"
+                    @keyup.enter="submitSearch"
+                >
             </div>
             <div class="fs-5" style="cursor: pointer;">
                 <i class="fa-solid fa-bag-shopping"></i>
             </div>
             <div class="border p-1 px-2 border-warning-subtle rounded custom-account-btn" style="cursor: pointer;">
-                <RouterLink to="/login" class="text-decoration-none">Account</RouterLink>
+                <RouterLink to="/login" class="text-decoration-none text-reset">Account</RouterLink>
                 
             </div>
         </div>
@@ -36,21 +44,31 @@
             <h1 class="fs-3 fw-bold">The Bookshop</h1>
         </div>
         <div class="font-monospace d-flex flex-column fw-medium gap-4 mt-3 fs-5">
-            <RouterLink to="/" class="text-decoration-none text-black custom-menu-link">Home</RouterLink>
-            <RouterLink to="/book" class="text-decoration-none text-black custom-menu-link">Books</RouterLink>
-            <RouterLink to="/about" class="text-decoration-none text-black custom-menu-link">About</RouterLink>
+            <RouterLink to="/" class="text-decoration-none text-black custom-menu-link" @click="isOpen = false">Home</RouterLink>
+            <RouterLink :to="{ name: 'books' }" class="text-decoration-none text-black custom-menu-link" @click="isOpen = false">Books</RouterLink>
+            <RouterLink to="/about" class="text-decoration-none text-black custom-menu-link" @click="isOpen = false">About</RouterLink>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { ref } from 'vue';
-    import { RouterLink } from 'vue-router';
+    import { ref } from 'vue'
+    import { RouterLink, useRouter } from 'vue-router'
 
-    const isOpen = ref(false);
+    const router = useRouter()
+    const isOpen = ref(false)
+    const search = ref('')
     const OpenMenu = () => {
-        isOpen.value = !isOpen.value;
-    };
+        isOpen.value = !isOpen.value
+    }
+
+    function submitSearch() {
+        router.push({
+            name: 'books',
+            query: search.value ? { search: search.value } : {}
+        })
+        isOpen.value = false
+    }
 </script>
 
 <style scoped>

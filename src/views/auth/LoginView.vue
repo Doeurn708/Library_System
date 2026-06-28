@@ -4,15 +4,17 @@
 
       <!-- Header -->
       <div class="brand">
-        <div class="brand-icon">📚</div>
+        <div class="brand-icon">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
         <h2>Welcome back</h2>
         <p>Sign in to your bookshop account</p>
       </div>
 
       <!-- Success state -->
       <div v-if="success" class="alert alert-success d-flex align-items-center gap-2 mb-3">
-        <i class="bi bi-check-circle-fill"></i>
-        Signed in successfully! Redirecting…
+        <i class="fa-solid fa-circle-check"></i>
+        Signed in successfully! Redirecting...
       </div>
 
       <form novalidate @submit.prevent="handleSubmit">
@@ -90,7 +92,7 @@
           :disabled="loading"
         >
           <span v-if="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-          {{ loading ? 'Signing in…' : 'Sign In' }}
+          {{ loading ? 'Signing in...' : 'Sign In' }}
         </button>
 
         <!-- Sign up -->
